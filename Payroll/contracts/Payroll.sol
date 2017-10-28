@@ -1,25 +1,5 @@
 pragma solidity ^0.4.15;
 
-/** TODO
-
-** Finish escape mode
-* What else should they be able to do in escape mode?
-
-** Add Oracle functions
-
-**? Use Human Standard Token from Consensys?
-
-** Add documentation
-
-** Write test contract
-
-Contract balance is in ETH but payouts in USD??
-
-Read up on Memory vs Storage pointers
-
-Read up on public vs external/private vs internal
-
-**/
 
 contract Payroll {
     
@@ -132,6 +112,19 @@ contract Payroll {
     }
     
 
+    // Get information about an employee
+    // @dev Only the owner can call this function
+    // @param employeeId: sequential ID assigned at create time
+    // @param accountAddress: employee's account address 
+    // @param salaryUSD: employee's current salary
+    // @param lastWithdrawalTime: unix timestamp of employee's last withdrawal
+    // @param isActive: bool whether they're still a current employee
+    // @param [] allowedTokens: array of their allowed tokens
+    // @param [] allocatedTokens: array of their allocated tokens
+    // @param [] allocatedDistribution: array of distribution to allocated tokens, in USD salary terms
+    // @param lastAllocationTime: unix timestamp of last time employee set allocation
+    // TODO: returning dynamic-sized arrays can get expensive
+    //       allow caller to get chunks of arrays instead 
     function getEmployee(uint256 employeeId) 
     external constant onlyOwner
     returns (address accountAddress, 
